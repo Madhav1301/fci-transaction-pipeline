@@ -1,0 +1,16 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Pipeline runtime artefacts (regenerated on every run)
+logs/
+
+# Office lock / temp files
+~$*
+~WRL*.tmp
+*.tmp
+
+# Assignment brief from the hiring team (kept local, not published)
+Sr. Data Engineer Assignment .docx

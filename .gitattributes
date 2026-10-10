@@ -1,0 +1,6 @@
+# Raw source files must stay byte-identical (the pipeline hashes them)
+*.csv -text
+NOTES.txt -text
+
+*.docx binary
+*.png binary

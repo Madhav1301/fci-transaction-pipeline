@@ -1,0 +1,4 @@
+These three files simulate three consecutive daily drops from a source bank's feed.
+They are provided AS-IS, with the quirks a real feed would have. Do not hand-clean them
+before running your pipeline — your pipeline should handle these cases programmatically.
+No further hints are given here about what the issues are; finding them is part of the task.
