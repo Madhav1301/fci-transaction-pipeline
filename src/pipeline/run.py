@@ -129,8 +129,12 @@ def _configure_logging(log_file: Path, level: str) -> None:
     fmt = logging.Formatter("%(asctime)s %(levelname)-7s %(name)s: %(message)s")
     root = logging.getLogger()
     root.setLevel(level)
+    for handler in [h for h in root.handlers if getattr(h, "_pipeline", False)]:
+        root.removeHandler(handler)
+        handler.close()
     for handler in (logging.StreamHandler(sys.stdout), logging.FileHandler(log_file, encoding="utf-8")):
         handler.setFormatter(fmt)
+        handler._pipeline = True  # so a second main() call in the same process replaces, not duplicates
         root.addHandler(handler)
 
 
