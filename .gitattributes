@@ -2,5 +2,11 @@
 *.csv -text
 NOTES.txt -text
 
+# Pipeline outputs are written with LF endings; keep them byte-identical on every
+# platform so a re-run on a fresh clone reports "no outputs changed"
+output/** -text
+reports/** -text
+state/** -text
+
 *.docx binary
 *.png binary
