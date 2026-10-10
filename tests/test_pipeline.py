@@ -56,9 +56,13 @@ def test_force_reprocess_produces_identical_outputs(project):
     project.copy_real_input(DAILY, LATE)
     project.run()
     before = project.snapshot(include_manifest=False)
+    first_metrics = {e["file_name"]: e["metrics"] for e in json.loads(
+        (project.root / "state/manifest.json").read_text(encoding="utf-8"))["files"].values()}
     result = project.run(force=True)
     assert result.processed == [DAILY, LATE]
     assert project.snapshot(include_manifest=False) == before
+    assert result.file_metrics == first_metrics   # per-file counts are recomputed identically
+    assert result.file_metrics[LATE]["late_rows"] == 3
 
 
 def test_lost_manifest_does_not_create_duplicates(project):

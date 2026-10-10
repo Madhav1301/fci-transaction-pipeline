@@ -51,12 +51,14 @@ def _process_file(sf: SourceFile, store: pd.DataFrame, cfg: Config):
     accepted["dq_warnings"] = soft_rule_warnings(accepted, store, cfg)
 
     quarantined = concat_frames([rejected, result.conflicts], list(rejected.columns))
+    kept = concat_frames([result.accepted, result.already_loaded], list(valid.columns))
     metrics = {
         "received": len(raw),
         "processed": len(result.accepted) + len(result.already_loaded),
         "rejected": len(quarantined),
         "duplicates_removed": len(result.duplicates),
-        "late_rows": int((accepted["is_late_arrival"] == "true").sum()),
+        # counted over accepted and already-loaded rows so a re-run records the same value
+        "late_rows": sum(d < f for d, f in zip(kept["_txn_date"], kept["_file_date"])),
     }
     if metrics["received"] != metrics["processed"] + metrics["rejected"] + metrics["duplicates_removed"]:
         raise ControlCheckError(f"{sf.name}: counts do not reconcile: {metrics}")
