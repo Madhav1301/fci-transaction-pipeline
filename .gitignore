@@ -3,6 +3,7 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+*.egg-info/
 
 # Pipeline runtime artefacts (regenerated on every run)
 logs/

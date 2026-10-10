@@ -1,0 +1,53 @@
+# Pipeline configuration for one source feed.
+# Relative paths are resolved from the project root (the folder that contains config/).
+# To onboard another feed, copy this file and change the values; no code changes needed.
+
+source:
+  name: bank_feed_a
+  input_dir: input
+  # file_date is required; file_type is optional (e.g. "late_correction"), "daily" if absent
+  file_pattern: '^batch_(?P<file_date>\d{4}-\d{2}-\d{2})(?:_(?P<file_type>[a-z_]+))?\.csv$'
+  encoding: utf-8
+  delimiter: ","
+  column_map: {}            # rename source headers, e.g. {acct_no: account_number}
+
+schema:
+  columns: [account_number, txn_date, txn_time, description, ref_no, debit, credit, balance, account_type]
+  date_formats: ["%d-%m-%Y"]
+  time_format: "%H:%M:%S"
+  amount_scale: 2
+  account_number_pattern: '^AC\d{9}$'
+
+dedup:
+  key: [account_number, ref_no]
+  on_conflict: quarantine   # same key, different values -> quarantine for review
+
+validation:
+  hard:                     # failing any of these sends the row to quarantine
+    - account_number_format
+    - valid_txn_date
+    - txn_date_window
+    - valid_txn_time
+    - debit_credit_exclusive
+    - debit_credit_present
+    - positive_amount
+    - ref_no_present
+    - valid_balance
+  soft:                     # failing these keeps the row and records a warning
+    - account_type_consistency
+    - balance_continuity
+    - negative_savings_balance
+  max_backdate_days: 30     # a txn_date may be at most this many days before its file date
+
+calendar:
+  frequency: daily          # daily | business_days
+  start_date: 2026-08-01
+  expected_file_name: "batch_{date}.csv"
+
+output:
+  clean_dir: output/clean
+  quarantine_file: output/quarantine/quarantine.csv
+  duplicates_file: output/audit/duplicates_removed.csv
+  reports_dir: reports
+  manifest_file: state/manifest.json
+  log_file: logs/pipeline.log

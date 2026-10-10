@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fci-transaction-pipeline"
+version = "1.0.0"
+description = "Bank transaction ingestion and data quality pipeline"
+requires-python = ">=3.10"
+dependencies = ["pandas>=2.2", "PyYAML>=6.0"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+txn-pipeline = "pipeline.run:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
