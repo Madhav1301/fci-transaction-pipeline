@@ -1,0 +1,38 @@
+{
+  "files": {
+    "365bdfbaad946cef79b5168fb8874843d0c4c1abfeee7797d660d005fce15f6a": {
+      "error": null,
+      "file_date": "2026-08-01",
+      "file_name": "batch_2026-08-01.csv",
+      "file_type": "daily",
+      "first_processed_at": "2026-10-10T10:49:43+00:00",
+      "last_processed_at": "2026-10-10T10:49:43+00:00",
+      "metrics": {
+        "duplicates_removed": 4,
+        "late_rows": 0,
+        "processed": 180,
+        "received": 187,
+        "rejected": 3
+      },
+      "sha256": "365bdfbaad946cef79b5168fb8874843d0c4c1abfeee7797d660d005fce15f6a",
+      "status": "SUCCESS"
+    },
+    "a5ca12df5c9f7731c1e5a910e9fead28bba0e884964fc3d1c0478c15390171c9": {
+      "error": null,
+      "file_date": "2026-08-04",
+      "file_name": "batch_2026-08-04_late_correction.csv",
+      "file_type": "late_correction",
+      "first_processed_at": "2026-10-10T10:49:43+00:00",
+      "last_processed_at": "2026-10-10T10:49:43+00:00",
+      "metrics": {
+        "duplicates_removed": 0,
+        "late_rows": 3,
+        "processed": 3,
+        "received": 3,
+        "rejected": 0
+      },
+      "sha256": "a5ca12df5c9f7731c1e5a910e9fead28bba0e884964fc3d1c0478c15390171c9",
+      "status": "SUCCESS"
+    }
+  }
+}

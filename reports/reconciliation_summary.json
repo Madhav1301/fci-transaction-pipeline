@@ -1,0 +1,94 @@
+{
+  "source": "bank_feed_a",
+  "files": [
+    {
+      "file": "batch_2026-08-01.csv",
+      "file_date": "2026-08-01",
+      "file_type": "daily",
+      "received": 187,
+      "processed": 180,
+      "rejected": 3,
+      "duplicates_removed": 4
+    },
+    {
+      "file": "batch_2026-08-04_late_correction.csv",
+      "file_date": "2026-08-04",
+      "file_type": "late_correction",
+      "received": 3,
+      "processed": 3,
+      "rejected": 0,
+      "duplicates_removed": 0
+    }
+  ],
+  "totals": {
+    "received": 190,
+    "processed": 183,
+    "rejected": 3,
+    "duplicates_removed": 4
+  },
+  "control_check": {
+    "equation": "received = processed + rejected + duplicates_removed",
+    "passed": true
+  },
+  "clean_dataset": {
+    "rows": 183,
+    "partitions": {
+      "2026-08-01": 183
+    }
+  },
+  "rejections_by_reason": {
+    "BOTH_DEBIT_AND_CREDIT": 1,
+    "MISSING_REF_NO": 1,
+    "NO_DEBIT_OR_CREDIT": 1
+  },
+  "rejected_records_with_multiple_reasons": 0,
+  "duplicates_by_type": {
+    "EXACT_DUPLICATE_IN_FILE": 4
+  },
+  "late_corrections": [
+    {
+      "file": "batch_2026-08-04_late_correction.csv",
+      "file_type": "late_correction",
+      "late_rows_loaded": 3,
+      "partitions": [
+        {
+          "txn_date": "2026-08-01",
+          "rows_before": 180,
+          "rows_added": 3,
+          "rows_after": 183
+        }
+      ],
+      "existing_rows_updated": 0,
+      "key_conflicts_quarantined": 0,
+      "rejected": 0,
+      "duplicates_removed": 0,
+      "debit_added": "18500.00",
+      "credit_added": "97000.00",
+      "accounts_affected": [
+        "AC100000002",
+        "AC100000005",
+        "AC100000009"
+      ],
+      "dq_warnings": {
+        "ACCOUNT_TYPE_MISMATCH": 3,
+        "BALANCE_DISCONTINUITY": 3
+      }
+    }
+  ],
+  "missing_files": [
+    {
+      "date": "2026-08-02",
+      "expected_file": "batch_2026-08-02.csv"
+    },
+    {
+      "date": "2026-08-03",
+      "expected_file": "batch_2026-08-03.csv"
+    }
+  ],
+  "dq_warnings": {
+    "ACCOUNT_TYPE_MISMATCH": 3,
+    "BALANCE_DISCONTINUITY": 3,
+    "NEGATIVE_SAVINGS_BALANCE": 3
+  },
+  "failed_files": []
+}
